@@ -9,8 +9,8 @@ def float_input(prompt):
 
 def operator_input():
 	while True:
-		operator = input("Enter an operator (+, -, *, /): ")
-		if operator in "+-*/":
+		operator = input("operator (+, -, *, /): ")
+		if operator in "+-*/x":
 			return operator
 		else:
 			print("Please enter a valid operator")
@@ -22,9 +22,15 @@ def continue_calc():
 def calci(starting:bool=True, result:float=0):
 
 	while True:
-		num1 = float_input("Enter the first number: ") if starting else result
+		num1 = float_input("number: ") if starting else result
+		if num1 == 1234567890:
+			print("You found the exit code!")
+			break
 		operator = operator_input()
-		num2 = float_input("Enter the second number: ") if starting else float_input("Enter the next number")
+		num2 = float_input("number: ")
+		if num2 == 1234567890:
+			print("You found the exit code!")
+			break
 
 		match operator:
 			case "+":
@@ -48,9 +54,12 @@ def calci(starting:bool=True, result:float=0):
 
 		print(f"{num1} {operator} {f"({num2})" if num2 < 0 else str(num2)} = {result}")
 
-		if continue_calc():
-			calci(False, result)
-	print("Goodbye!")
+		starting = False
+		continue
+
+	# 	if continue_calc():
+	# 		calci(False, result)
+	# print("Goodbye!")
 
 
 if __name__ == "__main__":
